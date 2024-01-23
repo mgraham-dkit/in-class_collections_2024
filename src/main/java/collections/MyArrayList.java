@@ -4,9 +4,16 @@ public class MyArrayList {
 
     private int [] data;
     private int num_elements;
+    private final int capacity;
+
+    public MyArrayList(int capacity){
+        this.capacity = capacity;
+        data = new int[capacity];
+    }
 
     public MyArrayList(){
-        data = new int[10];
+        capacity = 10;
+        data = new int[capacity];
     }
 
     public int size(){
@@ -17,7 +24,7 @@ public class MyArrayList {
         if(num_elements == data.length){
             grow();
         }
-        
+
         data[num_elements] = num;
         num_elements++;
     }
