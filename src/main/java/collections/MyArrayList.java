@@ -44,11 +44,21 @@ public class MyArrayList {
 
     public void add(int num){
         if(numElements == data.length){
-            grow();
+            //grow();
+            int [] duplicateData = new int[data.length+expansionFactor];
+            System.arraycopy(data, 0, duplicateData, 0, numElements);
+            data = duplicateData;
         }
 
         data[numElements] = num;
         numElements++;
+    }
+
+    public int get(int pos){
+        if(pos >= numElements || pos < 0)
+            throw new IndexOutOfBoundsException("Invalid position supplied");
+
+        return data[pos];
     }
 
     // Grow
