@@ -13,6 +13,18 @@ public class MyLinkedList {
         return numElements;
     }
 
+    public void addToStart(int num){
+        Node newNode = new Node(num);
+
+        if(head == null){
+            head = newNode;
+        }else{
+            newNode.setNext(head);
+            head = newNode;
+        }
+        numElements++;
+    }
+
     public void add(int num){
         Node newNode = new Node(num);
         if(numElements == 0){
@@ -37,6 +49,28 @@ public class MyLinkedList {
             current = current.getNext();
         }
         return -1;
+    }
+
+    // Get the value from the specified position
+    public int get(int pos){
+        // Validate position to confirm it's GREATER THAN -1
+        // AND LESS THAN number of elements
+        if(pos < 0 || pos >= numElements){
+            // If validation fails, throw an exception
+            throw new IndexOutOfBoundsException("Illegal position supplied: " + pos);
+        }
+
+        // Build your representative node - set it to the start of the list:
+        Node current = head;
+        // for each element from head up to specified position:
+        for(int i = 0; i < pos; i++){
+            // Move to the next element in the list
+            // Set current to next element in list
+            current = current.getNext();
+        }
+        // Now we're at the right position,
+        // return the data held here
+        return current.getData();
     }
 
     protected static class Node{
