@@ -41,45 +41,65 @@ public class MyLinkedList {
 
     public void add(int value, int pos){
         // Validation
+        // NEED TO HANDLE ADDING TO THE START OF THE LIST
+        // If position to be added is 0
+        if(pos == 0){
+            // Use addToStart method to add to the start of the list
+            addToStart(value);
+        }else {
+            // Create new Node (newNode) to hold data to be added
+            Node newNode = new Node(value);
+            // Make current Node and point to head node
+            Node current = head;
 
-        // Create new Node (newNode) to hold data to be added
-        Node newNode = new Node(value);
-        // Make current Node and point to head node
-        Node current = head;
+            // For each node before supplied position
+            for (int i = 0; i < pos; i++) {
+                // Get next node and set to current (current = current.getNext())
+                current = current.getNext();
+            }
 
-        // For each node before supplied position
-        for(int i = 0; i < pos; i++) {
-            // Get next node and set to current (current = current.getNext())
-            current = current.getNext();
+            // Set current's next to equal newNode
+            current.setNext(newNode);
+            // Set newNode's next to equal current's next
+            newNode.setNext(current.getNext());
+
+            // Increase numElements as we've added to the list
+            numElements++;
         }
-
-        // Set current's next to equal newNode
-        current.setNext(newNode);
-        // Set newNode's next to equal current's next
-        newNode.setNext(current.getNext());
-
-        // Increase numElements as we've added to the list
-        numElements++;
     }
     
     public int remove(int pos){
         // Validate position
 
         // Create variable to store data to be removed (value)
+        int removed;
         // If the position to be deleted equals 0
+        if(pos == 0){
             // Set the value to data in head
+            removed = head.getData();
             // Set head to node AFTER head
-        // Else if the position is > 0:
+            head = head.getNext();
+            // Else if the position is > 0:
+        }else {
             // Make current Node and point to head node
+            Node current = head;
             // For each node before supplied position
+            for(int i = 0; i < pos-1; i++) {
                 // Get next node and set to current (current = current.getNext())
-
+                current = current.getNext();
+            }
+            
             // Set value to data in node to be removed (current.getNext.getData())
+            removed = current.getNext().getData();
+            
             // Set current's next node to the next of the next node
             // i.e. current.setNext(current.getNext().getNext())
-            
+            current.setNext(current.getNext().getNext());
+        }
         // Decrease number of elements in the list
+        numElements--;
         // Return the deleted value
+        return removed;
     }
     
     public int indexOf(int num){
