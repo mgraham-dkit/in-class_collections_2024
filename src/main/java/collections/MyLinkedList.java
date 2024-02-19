@@ -2,6 +2,7 @@ package collections;
 
 public class MyLinkedList {
     private Node head;
+    private Node tail;
     private int numElements;
 
     public MyLinkedList(){
@@ -18,6 +19,7 @@ public class MyLinkedList {
 
         if(head == null){
             head = newNode;
+            tail = newNode;
         }else{
             newNode.setNext(head);
             head = newNode;
@@ -29,12 +31,10 @@ public class MyLinkedList {
         Node newNode = new Node(num);
         if(numElements == 0){
             head = newNode;
+            tail = newNode;
         }else{
-            Node current = head;
-            while(current.getNext() != null){
-                current = current.getNext();
-            }
-            current.setNext(newNode);
+            tail.setNext(newNode);
+            tail = newNode;
         }
         numElements++;
     }
@@ -46,6 +46,8 @@ public class MyLinkedList {
         if(pos == 0){
             // Use addToStart method to add to the start of the list
             addToStart(value);
+        } else if (pos == numElements) {
+            add(value);
         }else {
             // Create new Node (newNode) to hold data to be added
             Node newNode = new Node(value);
