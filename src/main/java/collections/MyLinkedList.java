@@ -81,8 +81,12 @@ public class MyLinkedList {
             removed = head.getData();
             // Set head to node AFTER head
             head = head.getNext();
-            // Else if the position is > 0:
-        }else {
+            if (head == null) {
+                tail = null;
+            }
+        }
+        // Check if position is length - 1
+        else {
             // Make current Node and point to head node
             Node current = head;
             // For each node before supplied position
@@ -93,7 +97,11 @@ public class MyLinkedList {
             
             // Set value to data in node to be removed (current.getNext.getData())
             removed = current.getNext().getData();
-            
+            // Check if next element is tail
+            if (current.getNext() == tail)
+            {
+                tail = current;
+            }
             // Set current's next node to the next of the next node
             // i.e. current.setNext(current.getNext().getNext())
             current.setNext(current.getNext().getNext());
