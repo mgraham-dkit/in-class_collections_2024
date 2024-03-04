@@ -146,6 +146,13 @@ public class MyLinkedList {
         return current.getData();
     }
 
+    public int tail(){
+        if(tail == null){
+            throw new IndexOutOfBoundsException("No data found in list");
+        }
+        return tail.getData();
+    }
+
     protected static class Node{
         private int data;
         private Node next;

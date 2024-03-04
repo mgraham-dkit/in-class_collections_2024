@@ -41,5 +41,8 @@ class MyLinkedListTest {
         for(int i = 0; i < startingData.size(); i++){
             assertEquals(startingData.get(i), list.get(i));
         }
+        int lastElement = startingData.get(startingData.size()-1);
+        int tailElement = list.tail();
+        assertEquals(lastElement, tailElement);
     }
 }
