@@ -24,4 +24,9 @@ public class MyStack extends MyLinkedList {
     public void push(int value){
         addToStart(value);
     }
+    
+    @Override
+    public int get(int pos){
+        throw new UnsupportedOperationException("Getting from a specific position is not available in a Stack");
+    }
 }
