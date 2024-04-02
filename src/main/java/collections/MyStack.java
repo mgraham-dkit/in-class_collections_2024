@@ -18,7 +18,7 @@ public class MyStack extends MyLinkedList {
     }
 
     public int peek(){
-        return get(0);
+        return super.get(0);
     }
 
     public void push(int value){
