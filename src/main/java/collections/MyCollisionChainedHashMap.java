@@ -1,13 +1,15 @@
 package collections;
 
-public class MySimpleHashMap {
+import java.util.LinkedList;
+
+public class MyCollisionChainedHashMap {
     // Set up base internal map/array
     // Set up variable to track the number of elements/pairs
-    private Entry[] map;
+    private LinkedList<Entry>[] map;
     private int count;
 
-    public MySimpleHashMap(){
-        map = new Entry[103];
+    public MyCollisionChainedHashMap(){
+        map = new LinkedList[103];
         count = 0;
     }
 
@@ -48,16 +50,9 @@ public class MySimpleHashMap {
     public String put(String key, String value){
         int slot = calcSlot(key);
         if(map[slot] == null){
-            Entry newEntry = new Entry(key, value);
-            map[slot] = newEntry;
-            count++;
-            return null;
-        }else if(map[slot].key.equals(key)){
-            String oldValue = map[slot].value;
-            map[slot].value = value;
-            return oldValue;
+            LinkedList<Entry> slotList = new LinkedList();
+            map[slot] = slotList;
         }
-        throw new SlotOccupiedException("Supplied key does not match key found in calculated slot");
     }
 
     private static class Entry{
