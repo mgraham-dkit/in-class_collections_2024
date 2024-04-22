@@ -1,0 +1,24 @@
+hashFunction:
+	hash key (turn it into a number)
+	Get absolute value of key's hash (convert to +ve)
+	return hash modded by length of map
+
+GET:
+input: key (String)
+Output: value or null
+
+Steps:
+
+if map is empty:
+	return null
+	
+Generate slot using hashFunction
+If map[slot] is null:
+	return null
+	
+// We now have a list to check!
+for entry in map[slot] (a list):
+	if entry.key equals key supplied:
+		return entry.value
+
+return null
