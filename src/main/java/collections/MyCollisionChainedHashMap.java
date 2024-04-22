@@ -36,15 +36,26 @@ public class MyCollisionChainedHashMap {
     }
 
     public String get(String key){
+        // VALIDATION!!!
+        if(key == null){
+            throw new IllegalArgumentException("Null cannot be used as a key");
+        }
+        
+        if(count == 0){
+            return null;
+        }
+        
         int slot = calcSlot(key);
         if(map[slot] == null){
             return null;
         }
-        if(map[slot].key.equals(key))
-            return map[slot].value;
-        else{
-            return null;
+        
+        for(Entry e: map[slot]) {
+            if (e.key.equals(key))
+                return e.value;
         }
+        
+        return null;
     }
 
     public String put(String key, String value){
