@@ -11,14 +11,40 @@ Steps:
 
 if map is empty:
 	return null
-	
+
 Generate slot using hashFunction
 If map[slot] is null:
 	return null
-	
+
 // We now have a list to check!
 for entry in map[slot] (a list):
 	if entry.key equals key supplied:
 		return entry.value
 
 return null
+
+PUT::
+INPUT:  key (String), value (String)
+OUTPUT: Replaced value or null (if this is a new key)
+
+Steps:
+
+Stage 1: VALIDATION!
+Validate that key is not null
+    Throw exception if it is
+    
+Stage 2: Calculate position/slot to be used
+Call hash function to calculate appropriate position in map
+
+if list in map[slot] is null:
+    Create new blank linkedlist and store in map[slot]
+    
+for each entry in map[slot] list:
+    if entry's key equals supplied key:
+        Save entry.value in orig_value variable
+        Update entry.value to new value
+        return orig_value
+        
+Create a new Entry with supplied key and value
+Add new entry to map[slot] list
+
