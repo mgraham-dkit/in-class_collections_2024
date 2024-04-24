@@ -5,7 +5,7 @@ import java.util.LinkedList;
 public class MyCollisionChainedHashMap {
     // Set up base internal map/array
     // Set up variable to track the number of elements/pairs
-    private LinkedList<Entry>[] map;
+    private final LinkedList<Entry>[] map;
     private int count;
 
     public MyCollisionChainedHashMap(){
@@ -13,14 +13,14 @@ public class MyCollisionChainedHashMap {
         count = 0;
     }
 
-    private int calcSlot(String key){
+    private int hashFunction(String key){
         int slot = Math.abs(key.hashCode());
         slot = slot % map.length;
         return slot;
     }
     
     public String remove(String key){
-        int slot = calcSlot(key);
+        int slot = hashFunction(key);
         if(map[slot] == null){
             return null;
         }
@@ -40,30 +40,41 @@ public class MyCollisionChainedHashMap {
         if(key == null){
             throw new IllegalArgumentException("Null cannot be used as a key");
         }
-        
         if(count == 0){
             return null;
         }
-        
-        int slot = calcSlot(key);
+
+        int slot = hashFunction(key);
         if(map[slot] == null){
             return null;
         }
-        
         for(Entry e: map[slot]) {
             if (e.key.equals(key))
                 return e.value;
         }
-        
+
         return null;
     }
 
     public String put(String key, String value){
-        int slot = calcSlot(key);
+        int slot = hashFunction(key);
         if(map[slot] == null){
-            LinkedList<Entry> slotList = new LinkedList();
+            LinkedList<Entry> slotList = new LinkedList<Entry>();
             map[slot] = slotList;
         }
+
+        for(Entry e: map[slot]){
+            if(e.key.equals(key)){
+                String oldValue = e.value;
+                e.value = value;
+                return oldValue;
+            }
+        }
+        Entry newEntry = new Entry(key, value);
+        map[slot].add(newEntry);
+        count++;
+
+        return null;
     }
 
     private static class Entry{
